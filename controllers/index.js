@@ -1,3 +1,5 @@
+const User = require("../models/user");
+
 exports.showIndex = (req, res, next) => {
   res.render("index");
 };
@@ -14,7 +16,14 @@ exports.get404Page = (req, res, next) => {
   res.status(404).render("404");
 };
 
-exports.signup = (req, res, next) => {
+exports.signup = async (req, res, next) => {
   const { username, email, password } = req.body;
-  console.log(username, email, password);
+  const user = new User(username, email, password);
+  try {
+    await user.saveDataInDB();
+    res.redirect("./");
+  } catch (error) {
+    console.log(error);
+    res.redirect("signup");
+  }
 };
