@@ -27,3 +27,19 @@ exports.signup = async (req, res, next) => {
     res.redirect("signup");
   }
 };
+
+exports.login = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne(email, password);
+    console.log(user);
+    if (user) {
+      res.redirect("/members");
+    } else {
+      res.render("index"); //Na configuração do servidor, o Express busca pelo arquivo template dentro da pasta views
+    }
+  } catch (error) {
+    console.log(error);
+    res.render("index");
+  }
+};
