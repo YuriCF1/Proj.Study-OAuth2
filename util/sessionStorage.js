@@ -5,7 +5,7 @@ const sessionStore = new MongoDBStore(
 {
     uri: 'mongodb://localhost:27017/',
     databaseName: 'test',
-    collection: 'sessions'
+    collection: 'sessions' //Poderia usar essas dados no redis
 })
 
 module.exports = sessionStore
