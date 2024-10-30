@@ -1,4 +1,4 @@
-const bcryp = require("bcrypt")
+const bcryp = require("bcrypt");
 const User = require("../models/user");
 
 exports.showIndex = (req, res, next) => {
@@ -19,9 +19,9 @@ exports.get404Page = (req, res, next) => {
 
 exports.signup = async (req, res, next) => {
   const { username, email, password } = req.body;
-  const hashedPassword = await bcryp.hash(password, 10)
+  const hashedPassword = await bcryp.hash(password, 10);
   const user = new User(username, email, hashedPassword);
-  
+
   try {
     await user.saveDataInDB();
     res.redirect("./");
@@ -35,8 +35,9 @@ exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne(email, password);
-    console.log(user);
+    console.log("User:", user);
     if (user) {
+      req.session.user = user;
       res.redirect("/members");
     } else {
       res.render("index"); //Na configuração do servidor, o Express busca pelo arquivo template dentro da pasta views
