@@ -11,6 +11,7 @@ router.post('/', controller.login)
 router.get('/signup', controller.showPageSignUp)
 router.post('/signup', controller.signup)
 router.get('/members', middlawares.checkAuth, controller.showMembersPage)
+router.get('/logout', controller.logout)
 router.use(controller.get404Page)
 
 module.exports = router
