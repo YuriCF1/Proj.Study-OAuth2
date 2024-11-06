@@ -6,7 +6,7 @@ passport.serializeUser(function (user, done) {
   done(null, user); //Erro e usuário
 });
 
-possport.deserializeUser(function (obj, done) {
+passport.deserializeUser(function (obj, done) {
   done(null, obj); //obj é o usuário
 });
 
@@ -24,8 +24,12 @@ passport.use(
     //   }
     // ));
     function (accessToken, refreshToken, profile, done) {
+      const user = {
+        id: profile.id,
+        photo: profile.photos[0].value,
+      };
       // return done(err, profile.id); //Caso eu queira tratar um erro de achar ou não ter conseguido criar um user no db
-      return done(null, profile.id);
+      return done(null, user);
     }
   )
 );
