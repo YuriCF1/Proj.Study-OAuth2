@@ -10,7 +10,7 @@ exports.showPageSignUp = (req, res, next) => {
 };
 
 exports.showMembersPage = (req, res) => {
-  res.render("members");
+  res.render("members", { user: req.user });
 };
 
 exports.get404Page = (req, res, next) => {
